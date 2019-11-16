@@ -1,12 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Project Donuts</title>
+
+  <!-- bootstrap and font-awesome -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet' />
+  <link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
+
+  <!-- full calendar CDN -->
+  <link href='assets/packages/core/main.css' rel='stylesheet' />
+  <link href='assets/packages/daygrid/main.css' rel='stylesheet' />
+  <link href='assets/packages/timegrid/main.css' rel='stylesheet' />
+  <link href='assets/packages/list/main.css' rel='stylesheet' />
+  <link href='assets/packages/bootstrap/main.css' rel='stylesheet' />
+  <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+  <script src='assets/packages/core/main.js'></script>
+  <script src='assets/packages/interaction/main.js'></script>
+  <script src='assets/packages/daygrid/main.js'></script>
+  <script src='assets/packages/timegrid/main.js'></script>
+  <script src='assets/packages/list/main.js'></script>
+  <script src='assets/packages/bootstrap/main.js'></script>
+
+  <!-- CDN for Semantic UI -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
-    
+  <div class="ui menu">
+    <div class="ui container">
+      <a href="#" class="header item"><img class="logo" id="donut-img" src="assets/images/donut.png">Project Dounts</a>
+      <a href="#" class="item">Project Insights</a>
+      <a href="#" class="item">Team Insights</a>
+    </div>
+  </div>
+
+  <div class="ui tabular menu">
+    <a class="active item">
+      Calendar
+    </a>
+    <a class="item">
+      Backlog
+    </a>
+    <div class="right menu">
+      <div class="item">
+        <div class="ui transparent icon input">
+          <input type="text" placeholder="Search Event...">
+          <i class="search link icon"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui bottom attached segment">
+    <p></p>
+  </div>
+  <div id="calendar-container" style="width: 90%; margin:auto;">
+    <div id="calendar"></div>
+  </div>
+
+  <script src="assets/javascript/calendar.js"> </script>
 </body>
+
 </html>
