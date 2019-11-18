@@ -1,0 +1,12 @@
+body{
+    margin:0;
+    padding: 0;;
+}
+
+.ui.menu{
+    /* background-color: #1aa0d7; */
+}
+
+.header.item{
+    font-size: 20px;
+}
