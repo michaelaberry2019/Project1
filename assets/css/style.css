@@ -10,3 +10,8 @@ body{
 .header.item{
     font-size: 20px;
 }
+
+.fc-event{
+    height: 30px;
+    background: #3660cc;
+}
