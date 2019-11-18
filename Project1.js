@@ -10,17 +10,25 @@ var res;
 $.ajax({url:queryURL,method:'GET'})
 .done(function(response){
   res = response.holidays;
-  
+
+
+
+// map takes an  res array and mutates it into holidayArray
   holidayArray = res.map((holi)=>{
       return {
-          country: holi.country,
-          date: holi.date,
-          name: holi.name
+        //   country: holi.country,
+          start: holi.date,
+          title: holi.name,
+          rendering: 'background',
       }
   })
     console.log(holidayArray)
 
+    // var holidayArrayString = JSON.stringify(holidayArray);
+    // localStorage.setItem('holidayArray', holidayArrayString);
 });
+
+
 // softcode below
 // var queryparameter = "pretty&country="+countryCode+"&year="+yearValue+"&key="+apikey;
 // var URL = domain + endpoint + "?"+ queryparameter;
