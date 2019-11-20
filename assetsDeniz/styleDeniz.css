@@ -1,0 +1,25 @@
+#Milestone-window{
+    display: block;
+    overflow: scroll;
+
+}
+
+.ui-modal{
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+#input-form{
+    display: block;
+    width: 50%;
+    margin:0 auto;
+    
+}
+
+#Description{
+    padding: 30px 50px;
+}
+
+#heading{
+    text-align: center;
+}
