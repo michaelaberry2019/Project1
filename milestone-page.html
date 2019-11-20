@@ -20,9 +20,9 @@
         <div id="input-form">
             <br>
             <p>Type: </p>
-            <select class="ui fluid dropdown" id="Type-select">
-                <option value="Milestone">Milestone</option>
-                <option value="Task">Task</option>
+            <select class="ui fluid dropdown" id="Event_select">
+                <option value="Milestone" id="opt_milestone">Milestone</option>
+                <option value="Task" id="opt_task">Task</option>
             </select>
             <br>
             <h2> Add Milestone </h2>
@@ -36,13 +36,13 @@
             <div class = "field">
             <p>Milestone name: </p>
             <form>
-                <input type="text" name="Milestone-name">
+                <input type="text" name="Milestone-name" id="Milestone-name">
             </form>
             </div>
             <div class = "field">
             <p>Description: </p>
             <form>
-                <input type="text" name="Milestone-description" id="Description">
+                <input type="text" name="Milestone-description" id="Milestone-description">
             </form>
             </div>
             <br>
@@ -55,10 +55,14 @@
 
         
     </div>
-<script src="assetsDeniz/eventAdd.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
-<script src="jquery-3.4.1.min.js"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="assetsDeniz/eventAdd.js"></script>
+<!-- <script src="jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
 </body>
 </html>

@@ -5,6 +5,7 @@ validate user input
 Conditions:
 Title/Date/ cant be empty,
 Store data in local storage 
+^^ Done
 
 create Blank modal, press cancel, hide modal, 
 
