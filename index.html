@@ -28,43 +28,351 @@
   <script src='assets/packages/timegrid/main.js'></script>
   <script src='assets/packages/list/main.js'></script>
   <script src='assets/packages/bootstrap/main.js'></script>
+  <script src='assets/packages/google-calendar/main.js'></script>
 
   <!-- CDN for Semantic UI -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
   <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- CDN for Chart.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 </head>
 
 <body>
   <div class="ui menu">
-    <div class="ui container">
+    <div class="ui container top-menu">
       <a href="#" class="header item"><img class="logo" id="donut-img" src="assets/images/donut.png">Project Dounts</a>
-      <a href="#" class="item">Project Insights</a>
-      <a href="#" class="item">Team Insights</a>
+      <a href="#" class="item active" id="project-insights"><i class="tv icon"></i>Project Insights</a>
+      <a href="#" class="item" id="team-insights"><i class="users icon"></i>Team Insights</a>
     </div>
   </div>
-
-  <div class="ui tabular menu">
-    <a class="active item">
-      Project Calendar
-    </a>
-    <a class="item">
-      Teams Backlog
-    </a>
-    <div class="right menu">
-      <div class="item">
-        <div class="ui transparent icon input">
-          <input type="text" placeholder="Search Event...">
-          <i class="search link icon"></i>
+  <div id="project-insights-container">
+    <div class="ui tabular menu" id="personas">
+      <a class="active item" id="pj-cal"><i class="calendar alternate outline icon"></i>
+        Project Calendar
+      </a>
+      <a class="item" id="pj-bl"><i class="smile outline icon"></i>
+        Teams Backlog
+      </a>
+      <div class="right menu">
+        <div class="item" id="btn4cal">
+          <button class="ui green button" id="btn-new-event"><i class="calendar outline icon"></i>New Event</button>
+        </div>
+        <div class="item" id="btn4backlog">
+          <button class="ui green button" id="btn-user"><i class="icon user"></i>Add Member</button>
         </div>
       </div>
     </div>
+
+
+    <div id="calendar-container" style="width: 90%; margin:auto;">
+      <div id="calendar"></div>
+    </div>
+    <!-- add event Modal -->
+    <div class="ui large modal" id="milestone">
+      <div class="header">Create Event</div>
+      <div class="content" id="modal-content">
+        <div class="ui ordered steps" id="stepper">
+          <div class="active step event-type">
+            <div class="content">
+              <div class="title">Event Type</div>
+              <div class="description">Choose the type of the event</div>
+            </div>
+          </div>
+          <div class="step event-details">
+            <div class="content">
+              <div class="title">Event Details</div>
+              <div class="description">Enter the event details</div>
+            </div>
+          </div>
+          <div class="step confirmation">
+            <div class="content">
+              <div class="title">Confirmation</div>
+              <div class="description">Verify the event details</div>
+            </div>
+          </div>
+        </div>
+        <div id="input-form">
+          <div id="event-type-content">
+            <h2>Event Type: </h2>
+            <p>Please Choose one of the event type below</p>
+            <select class="ui fluid dropdown" id="event-select">
+              <option value="Milestone" id="opt_milestone">Milestone</option>
+              <option value="Task" id="opt_task">Task</option>
+            </select>
+          </div>
+
+          <div id="event-details-content">
+            <h2 id="event-details-header"><span id="eTypeSpan"></span> Detail:</h2>
+            <div id="ms-date">
+              <h3 id="date">Milestone Due Date: </h3>
+              <div class="ui calendar alternate">
+                <div class="ui input left icon">
+                  <i class="calendar icon"></i>
+                  <input type="text" placeholder="Date/Time" id="milestone-date">
+                </div>
+              </div>
+            </div>
+
+            <div id="task-date">
+              <h3 id="date">Task Time Range: </h3>
+              <div class="ui calendar alternate">
+                <div class="ui input left icon">
+                  <i class="calendar icon"></i>
+                  <input type="text" placeholder="Date/Time" id="task-range">
+                </div>
+              </div>
+            </div>
+
+
+            <h3 id="eventName">Name: </h3>
+            <div class="ui form">
+              <div class="ui field">
+                <input type="text" placeholder="For example: Wireframe Design Sign-off" id="event-name">
+              </div>
+            </div>
+
+            <h3 id="eventDescription">Description:</h3>
+            <div class="ui form">
+              <div class="ui field">
+                <textarea placeholder="For example: Wireframe Design Sign-off" id="event-description"></textarea>
+              </div>
+            </div>
+
+          </div>
+          <div id="confirmation-content">
+            <table class="ui celled table">
+              <thead>
+                <tr>
+                  <th>Items</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody id="table-body">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="ui button" type="button" id="btn-previous"> Previous </button>
+        <button class="ui button" type="button" id="btn-next"> Next </button>
+        <div class="ui positive right labeled icon button" id="btn-save"><i class="save icon"></i>Save</div>
+        <div class="ui cancel button">Cancel</div>
+      </div>
+    </div>
+
+    <!-- team backlog page -->
+    <!-- <div class="ui bottom attached segment three column divided grid">
+    <div class="equal height row"> -->
+    <div class="ui  cards" id="team-cards">
+      <div class="ui two column doubling stackable grid container">
+        <div class="column">
+          <div class="ui fluid card">
+            <div class="content">
+              <div class="right floated meta"></div>
+              <h3 class="member-name"><img class="ui avatar image" src="assets/images/harry_photo.jpg"> Harry Shen</h3>
+            </div>
+            <div class="content">
+              <h3><i class="keyboard icon"></i>Work in Progress</h3>
+              <div class="ui list">
+                <div class="item">
+                  <button class="ui mini toggle button btn-done" status="inactive">Done</button> <span>Product Design
+                    Mockup</span>
+                </div>
+                <div class="item">
+                  <button class="ui mini toggle button btn-done" status="inactive">Done</button> <span>Design
+                    Mockups</span>
+                </div>
+                <div class="item">
+                  <button class="ui mini toggle button btn-done" status="inactive">Done</button> <span>Backlog Page
+                    Implementation</span>
+                </div>
+                <div class="item">
+                  <button class="ui mini toggle button btn-done" status="inactive">Done</button> <span>Backlog Page
+                    Implementation</span>
+                </div>
+                <div class="item">
+                  <button class="ui mini toggle button btn-done" status="inactive">Done</button> <span>Backlog Page
+                    Implementation</span>
+                </div>
+              </div>
+            </div>
+            <div class="content">
+              <h3>Completed</h3>
+              <div class="ui list">
+                <div class="item">
+                  <button class="ui mini toggle button btn-done" status="active">Done</button> <span>Project
+                    Design</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="ui fluid card">
+            <div class="content">
+              <div class="right floated meta"></div>
+              <h3 class="member-name"><img class="ui avatar image" src="assets/images/idaputra.jpg"> Ida Putra</h3>
+            </div>
+            <div class="content">
+              <h3><i class="keyboard icon"></i>Work in Progress</h3>
+              <div class="ui list">
+                <div class="item">
+                  <button class="ui mini toggle button btn-done" status="inactive">Done</button> <span>Backlog Page
+                    Implementation</span>
+                </div>
+              </div>
+            </div>
+            <div class="content">
+              <h3>Completed</h3>
+              <div class="ui list">
+                <div class="item">
+                  <button class="ui mini toggle button btn-done" status="active">Done</button> <span>Backlog HTML
+                    Implementation</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui two column doubling stackable grid container">
+        <div class="column">
+          <div class="ui fluid card">
+            <div class="content">
+              <div class="right floated meta"></div>
+              <h3 class="member-name"><img class="ui avatar image" src="assets/images/picachu.png">Deniz</h3>
+            </div>
+            <div class="content">
+              <h3><i class="keyboard icon"></i>Work in Progress</h3>
+            </div>
+            <div class="content">
+              <h3>Completed</h3>
+              <div class="ui list">
+                <div class="item">
+                  <button class="ui mini toggle button btn-done" status="active">Done</button> <span>Modal Page
+                    Implementation</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="ui fluid card">
+            <div class="content">
+              <div class="right floated meta"></div>
+              <h3 class="member-name"><img class="ui avatar image" src="assets/images/picachu.png"> Michaela</h3>
+            </div>
+            <div class="content">
+              <h3><i class="keyboard icon"></i>Work in Progress</h3>
+              <div class="ui list">
+                <div class="item">
+                  <button class="ui mini toggle button btn-done" status="inactive">Done</button> <span>Backlog Page
+                    Implementation</span>
+                </div>
+              </div>
+            </div>
+            <div class="content">
+              <h3>Completed</h3>
+              <div class="ui list">
+                <div class="item">
+                  <button class="ui mini toggle button btn-done" status="active">Done</button> <span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- team backlog modal -->
+    <!-- <div class="ui modal" id="model1">
+      <div class="header">Add new</div>
+      <div class="content">
+        <form class="ui form" id="myform">
+          <div class="field">
+            <label>First Name</label>
+            <input type="text" name="first-name" placeholder="First Name" id="first-name">
+          </div>
+          <div class="field">
+            <label>Last Name</label>
+            <input type="text" name="last-name" placeholder="Last Name" id="last-name">
+          </div>
+
+          <div class="field">
+            <label>IMG URL</label>
+            <input type='file' img id="myImg" src="#" alt="your image" height=200 width=100 id="myimg">
+
+          </div>
+
+      </div> -->
+      <!-- <div class="actions">
+        <div class="ui button" id="save">Save</div>
+        <div class="ui cancel button" id="cancel">Cancel</div>
+      </div>
+    </div> -->
+
+    <!-- <div class="ui modal" id="model2">
+
+      <div class="content">
+        <form class="ui form" id="form2">
+          <div class="field">
+            <label>Please Insert Value</label>
+          </div>
+
+
+      </div>
+      <div class="actions">
+        <div class="ui button" id="close">close</div>
+
+      </div>
+    </div> -->
+
+    <!-- <div class="ui modal" id="model3">
+
+      <div class="header">Add new</div>
+      <div class="content">
+        <div class="ui form" id="form3">
+          <div class="field">
+            <label>Work in progress</label>
+            <input type="text" id="wip">
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="ui button" id="confirm">Confirm</div>å
+        <div class="ui cancel button" id="">Close</div>
+      </div>
+    </div> -->
   </div>
-  <div class="ui bottom attached segment">
-    <p></p>
-  </div>
-  <div id="calendar-container" style="width: 90%; margin:auto;">
-    <div id="calendar"></div>
+
+
+  <!-- Team insights dashboard -->
+  <div class="canvas-container" id="team-insights-container">
+    <div class="ui two column doubling stackable grid container">
+      <div class="column">
+        <canvas id="commit-line-chart" height=200></canvas>
+      </div>
+      <div class="column">
+        <canvas id="commit-pie-chart" height=200></canvas>
+      </div>
+      <div class="column">
+        <canvas id="message-line-chart" height=200></canvas>
+      </div>
+      <div class="column">
+        <canvas id="help-line-chart" height=200></canvas>
+      </div>
+    </div>
   </div>
 
   <script src="assets/javascript/calendar.js"> </script>
