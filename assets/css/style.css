@@ -1,17 +1,74 @@
-body{
-    margin:0;
-    padding: 0;;
+body {
+    margin: 0;
+    padding: 0;
+    ;
 }
 
-.ui.menu{
-    /* background-color: #1aa0d7; */
-}
-
-.header.item{
+.header.item {
     font-size: 20px;
 }
 
-.fc-event{
+#project-insights, #team-insights{
+    font-size: 18px;
+}
+
+#personas{
+    font-size:14px;
+}
+
+.fc-event {
     height: 30px;
     background: #3660cc;
+}
+
+.gcal-event {
+    background: green;
+}
+
+.fc-event-time, .fc-event-title {
+    padding: 0 1px; 
+    white-space: nowrap;
+}
+/* 
+.fc-title {
+    white-space: normal;
+} */
+
+.fc-day-grid-event > .fc-content { /* force events to be one-line tall */
+    white-space: normal;
+    overflow: hidden;
+}
+.fc-milestone{
+    background: red
+}
+
+#Milestone-window{
+    display: block;
+    overflow: scroll;
+}
+
+#event-details-content,#confirmation-content,#team-insights-container{
+    display: none;
+}
+
+.member-name{
+    font-size: 30px;
+}
+
+#team-cards{
+    margin-top :30px;
+    display: none;
+}
+
+#btn-new-event{
+    display: block;
+}
+#btn-user{
+    display: none;
+}
+
+canvas{
+    border:2px lightgray solid;
+    border-radius: 2rem;
+    padding: 10px;
 }
